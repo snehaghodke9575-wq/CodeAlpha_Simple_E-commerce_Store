@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Product Details</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background-color: #f4f6f8;
+            color: #333;
+        }
+
+        .product-container {
+            max-width: 800px;
+            margin: 40px auto;
+            background-color: #ffffff;
+            padding: 30px 35px;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        h1 {
+            color: #1e3a8a;
+            margin-bottom: 10px;
+            font-size: 30px;
+        }
+
+        .price {
+            font-size: 22px;
+            font-weight: 600;
+            color: #16a34a;
+            margin-bottom: 15px;
+        }
+
+        .description-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+
+        .description {
+            line-height: 1.6;
+            color: #4b5563;
+            margin-bottom: 25px;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: #2563eb;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .cart-btn button {
+            padding: 12px 20px;
+            background-color: #2563eb;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .cart-btn button:hover {
+            background-color: #1e40af;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="product-container">
+
+        <h1>{{ product.name }}</h1>
+
+        <div class="price">₹{{ product.price }}</div>
+
+        <div class="description-title">Description</div>
+        <p class="description">{{ product.discription }}</p>
+
+        <div class="actions">
+            <a href="/" class="back-link">← Back To Home Screen</a>
+
+            <a href="{% url 'add_to_cart' product.id %}" class="cart-btn">
+                <button>Add to Cart</button>
+            </a>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

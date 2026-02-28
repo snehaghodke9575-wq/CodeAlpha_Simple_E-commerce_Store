@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Payment</title>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: linear-gradient(135deg, #1e3a8a, #2563eb);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .payment-box {
+            background-color: #ffffff;
+            padding: 35px 40px;
+            border-radius: 12px;
+            width: 380px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #1e3a8a;
+            font-size: 24px;
+        }
+
+        .amount {
+            font-size: 20px;
+            font-weight: 600;
+            color: #16a34a;
+            margin-bottom: 25px;
+        }
+
+        #pay-btn {
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            background-color: #2563eb;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        #pay-btn:hover {
+            background-color: #1e40af;
+        }
+
+        .secure-text {
+            margin-top: 15px;
+            font-size: 13px;
+            color: #6b7280;
+        }
+    </style>
+</head>
+
+<body align="center">
+
+    <div class="payment-box">
+        <h2>Complete Your Payment</h2>
+
+        <div class="amount">Pay ₹{{ amount }}</div>
+
+        <button id="pay-btn">Pay Now</button>
+
+        <div class="secure-text">🔒 Secure payment powered by Razorpay</div>
+    </div>
+
+    <script>
+        var options = {
+            "key": "{{razorpay_key_id}}",
+            " amount": "{{ amount }}00",
+            "currency": "INR",
+            "name": "My Store",
+            "discription": "order payment",
+            "order_id": "{{ order_id }}",
+            "handler": function (response) {
+                alert("Payment Successful");
+                window.location.href = "/order-success/";
+            },
+        }
+        var rzp1 = new Razorpay(options);
+        document.getElementById('pay-btn').onclick = function (e) {
+            rzp1.open();
+            e
+        }
+    </script>
+
+</body>
+
+</html>

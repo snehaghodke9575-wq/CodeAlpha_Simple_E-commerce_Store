@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Cart</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background-color: #f4f6f8;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            background-color: #1e3a8a;
+            color: #ffffff;
+            padding: 16px;
+            margin: 0;
+        }
+
+        .cart-container {
+            max-width: 700px;
+            margin: 30px auto;
+            background-color: #ffffff;
+            padding: 20px 25px;
+            border-radius: 10px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-info {
+            font-size: 15px;
+        }
+
+        .item-actions a {
+            text-decoration: none;
+            margin-left: 8px;
+            font-size: 16px;
+        }
+
+        .remove-btn button {
+            background-color: #dc2626;
+            color: #ffffff;
+            border: none;
+            padding: 6px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .remove-btn button:hover {
+            background-color: #b91c1c;
+        }
+
+        .total {
+            text-align: right;
+            font-size: 18px;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+
+        .cart-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+        }
+
+        .cart-actions button {
+            padding: 10px 16px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .continue-btn {
+            background-color: #64748b;
+            color: #ffffff;
+        }
+
+        .order-btn {
+            background-color: #2563eb;
+            color: #ffffff;
+        }
+
+        .continue-btn:hover {
+            background-color: #475569;
+        }
+
+        .order-btn:hover {
+            background-color: #1e40af;
+        }
+
+        .empty {
+            text-align: center;
+            color: #6b7280;
+            font-size: 16px;
+            padding: 20px 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Your Cart</h1>
+
+    <div class="cart-container">
+
+        {% for item in items %}
+        <div class="cart-item">
+            <div class="item-info">
+                {{ item.product.name }} —
+                ₹{{ item.product.price }} × {{ item.quantity }}
+            </div>
+
+            <div class="item-actions">
+                <a href="{% url 'remove_from_cart' item.id %}" class="remove-btn">
+                    <button>Remove</button>
+                </a>
+            </div>
+        </div>
+        {% empty %}
+        <div class="empty">Cart is empty</div>
+        {% endfor %}
+
+        <div class="total">
+            Total: ₹{{ total }}
+        </div>
+
+        <div class="cart-actions">
+            <a href="{% url 'home' %}">
+                <button class="continue-btn">Continue Shopping</button>
+            </a>
+
+            <a href="{% url 'place_order' %}">
+                <button class="order-btn">Place Order</button>
+            </a>
+        </div>
+
+        <br>
+
+        {% for item in cart_items %}
+        <div class="cart-item">
+            <div class="item-info">
+                {{ item.product.name }} —
+                ₹{{ item.product.price }} × {{ item.quantity }}
+            </div>
+
+            <div class="item-actions">
+                <a href="{% url 'update_cart' item.id 'minus' %}">➖</a>
+                <a href="{% url 'update_cart' item.id 'plus' %}">➕</a>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+
+</body>
+
+</html>
